@@ -27,8 +27,6 @@ namespace TicTacToe_WPF
             User2 = new ComputerPlayer(MyRenderer);
             gameWindow = wnd;
 
-            //test
-            Event = 0;
 
         }
 
@@ -42,9 +40,9 @@ namespace TicTacToe_WPF
 
         }
 
-        //public void EndGame(){}
+        //public void EndGame(){} - do something when the game finishes
 
-        public async Task HandleTurn(int turn)
+        public void HandleTurn(int turn)
         {   
             
             //check if valid using update grid
@@ -61,21 +59,16 @@ namespace TicTacToe_WPF
 
            
             }
-            /*if (CurrentPlayer.GetType().ToString() == "TicTacToe_WPF.ComputerPlayer")
-            {
-                 gameWindow.UpdateCommentary("Test");
-
-                HandleTurn(CurrentPlayer.GetChoiceOfCell());
-            }*/
+          
 
            
         }
-        public async Task HandleComputerTurn()
+        public void HandleComputerTurn()
         {
             if (CurrentPlayer.GetType().ToString() == "TicTacToe_WPF.ComputerPlayer")
             {
-                gameWindow.UpdateCommentary("Test");
-                Thread.Sleep(500);
+                gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
+                
                 HandleTurn(CurrentPlayer.GetChoiceOfCell());
             }
              
