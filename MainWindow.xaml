@@ -25,7 +25,7 @@
                Grid.ColumnSpan="3"/>
         <Button
             x:Name="boxZero"
-            Click="turn_Click"   
+            Click="myDel"    
             Tag="0"
             Content=""
             Grid.Row="1"
@@ -37,7 +37,7 @@
             
         <Button
             x:Name="boxOne"
-            Click="turn_Click" 
+            Click="myDel"
             Tag="1"
             Content=""
             Grid.Row="1"
@@ -48,7 +48,7 @@
             Margin="1"/>
         <Button
             x:Name="boxTwo"
-            Click="turn_Click" 
+            Click="myDel" 
             Tag="2"
             Content=""
             Grid.Row="1"
@@ -59,7 +59,7 @@
             Margin="1"/>
         <Button
             x:Name="boxThree"
-            Click="turn_Click" 
+            Click="myDel" 
             Tag="3"
             Content=""
             Grid.Row="2"
@@ -70,7 +70,7 @@
             Margin="1"/>
         <Button
             x:Name="boxFour"
-            Click="turn_Click" 
+            Click="myDel"
             Tag="4"
             Content=""
             Grid.Row="2"
@@ -81,7 +81,7 @@
             Margin="1"/>
         <Button
             x:Name="boxFive"
-            Click="turn_Click" 
+            Click="myDel"
             Tag="5"
             Content=""
             Grid.Row="2"
@@ -92,7 +92,7 @@
             Margin="1"/>
         <Button
             x:Name="boxSix"
-            Click="turn_Click" 
+            Click="myDel" 
             Tag="6"
             Content=""
             Grid.Row="3"
@@ -104,7 +104,7 @@
         
         <Button
             x:Name="boxSeven"
-            Click="turn_Click" 
+            Click="myDel"
             Tag="7"
             Content=""
             Grid.Row="3"
@@ -115,7 +115,7 @@
             Margin="1"/>
         <Button
             x:Name="boxEight"
-            Click="turn_Click" 
+            Click="myDel" 
             Tag="8"
             Content=""
             Grid.Row="3"
@@ -126,7 +126,7 @@
             Margin="1"/>
         <TextBlock
             x:Name="commentary"   
-            Text="Testing"
+            Text=""
             Grid.Row="4"
             Grid.ColumnSpan="3"
             VerticalAlignment="Center"

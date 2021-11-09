@@ -20,69 +20,75 @@ namespace TicTacToe_WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    public delegate void MyDelegate(object sender, RoutedEventArgs e);
+
     public partial class MainWindow : Window
     {
         public MainWindow AppWindow;
         private GameController newGame;
+        public MyDelegate myDel;
 
-        
+
         public MainWindow()
         {
+            //InitializeComponent();
+            AppWindow = this;
+            this.myDel = new MyDelegate(AppWindow.turn_Click);
             InitializeComponent();
+            //AppWindow = this;
             newGame = new GameController(AppWindow);
             newGame.RunGame();
-            //AppWindow = this;
-
+            
+            
         }
+              
 
         public void UpdateCommentary(string newText)
         {
             commentary.Text = newText;
         }
 
-        private void turn_Click(object sender, RoutedEventArgs e)
+        public async void turn_Click(object sender, RoutedEventArgs e)
         {
-            string turn = (sender as Button).Tag.ToString();
-            if (newGame.ValidateTurn(Int32.Parse(turn)))
-            {
-                (sender as Button).Content = newGame.CurrentPlayer.NoughtOrCross.ToString();
-                UpdateCommentary(newGame.CheckForWin());
-            } else
-            {
-                UpdateCommentary(newGame.CurrentPlayer.TryAgainText);
-            }
-            HandleComputerTurn();
-            //newGame.ValidateTurn(newGame.CurrentPlayer.GetChoiceOfCell());
 
+            string turn = (sender as Button).Tag.ToString();
+
+            await newGame.HandleTurn(Int32.Parse(turn));
+            Thread.Sleep(500);
+            await newGame.HandleComputerTurn();
+            
         
         }
-
+        /*
         private void HandleComputerTurn()
         {
+            newGame.HandleComputerTurn();
+            /* UpdateCommentary(newGame.CurrentPlayer.TakeTurnText);
+             Thread.Sleep(300);
+             int turn = newGame.CurrentPlayer.GetChoiceOfCell(); //get turn
+             bool validTurn = false;
+             while (!validTurn)
+             {
+                 if (newGame.ValidateTurn(turn))
+                 {
+                     //need method to update button content & 
+                     UpdateButton(turn.ToString(), newGame.CurrentPlayer.NoughtOrCross);
+                     UpdateCommentary(newGame.CheckForWin());
+                     validTurn = true;
+                 }
+                 else
+                 {
+                     //try taking turn again
+                     turn = newGame.CurrentPlayer.GetChoiceOfCell();
+                 }
+             }
+             
+        }*/
 
-            UpdateCommentary(newGame.CurrentPlayer.TakeTurnText);
-            Thread.Sleep(300);
-            int turn = newGame.CurrentPlayer.GetChoiceOfCell(); //get turn
-            bool validTurn = false;
-            while (!validTurn)
-            {
-                if (newGame.ValidateTurn(turn))
-                {
-                    //need method to update button content & 
-                    UpdateButton(turn.ToString(), newGame.CurrentPlayer.NoughtOrCross);
-                    UpdateCommentary(newGame.CheckForWin());
-                    validTurn = true;
-                }
-                else
-                {
-                    //try taking turn again
-                    turn = newGame.CurrentPlayer.GetChoiceOfCell();
-                }
-            }
-            
-        }
-
-        private void UpdateButton(string tag, Token token)
+        //public void UpdateButton(string tag, Token token)
+        public void UpdateButton(string tag, Token token)
         {
             foreach (var x in MyGrid.Children.OfType<Button>())
             {
@@ -92,5 +98,7 @@ namespace TicTacToe_WPF
                 }
             }
         }
+
+       
     }
 }

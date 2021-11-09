@@ -13,15 +13,17 @@ namespace TicTacToe_WPF
     /// </summary>
     public partial class App : Application
     {
+        
+
         private void AppStartup(object sender, StartupEventArgs e)
         {
             // Create the startup window
-            //MainWindow wnd = new MainWindow();
+            MainWindow wnd = new MainWindow();
             // Start game
-            //GameController newGame = new GameController(wnd);
-            //newGame.RunGame();
+            GameController newGame = new GameController(wnd);
+            newGame.RunGame();
             // Show the window
-            //wnd.Show();
+            wnd.Show();
         }
         }
 }

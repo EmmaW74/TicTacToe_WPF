@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
+
 
 namespace TicTacToe_WPF
 {
@@ -36,7 +36,7 @@ namespace TicTacToe_WPF
 
             int turnTaken = randomChoice.Next(0,9);
 
-            Thread.Sleep(300);
+           // Thread.Sleep(300);
 
             return turnTaken;
 
