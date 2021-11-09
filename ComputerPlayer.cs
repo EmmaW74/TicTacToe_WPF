@@ -24,7 +24,7 @@ namespace TicTacToe_WPF
             NoughtOrCross = Token.O;
             TakeTurnText = $"{PlayerName} is taking their turn...";
             GameWonText = $"{PlayerName} wins! Better luck next time.";
-            TryAgainText = "${PlayerName}'s turn isn't valid, trying again...";
+            TryAgainText = $"{PlayerName}'s turn isn't valid, trying again...";
         }
 
         override public int GetChoiceOfCell()

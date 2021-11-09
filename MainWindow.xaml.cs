@@ -51,12 +51,10 @@ namespace TicTacToe_WPF
         {
 
             string turn = (sender as Button).Tag.ToString();
-
             newGame.HandleTurn(Int32.Parse(turn));
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             newGame.HandleComputerTurn();
             
-        
         }
        
         public void UpdateButton(string tag, Token token)

@@ -50,29 +50,44 @@ namespace TicTacToe_WPF
             {
                 //if not show try again text
                  gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
+               
             }
             else
             {
                 //if valid turn check for win & update commentary
                  gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
                  gameWindow.UpdateCommentary(CheckForWin());
-
+             
            
             }
-          
+
+            
 
            
         }
         public void HandleComputerTurn()
         {
-            if (CurrentPlayer.GetType().ToString() == "TicTacToe_WPF.ComputerPlayer")
+            gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
+            int turn;
+            bool taken = false;
+            while (!taken)
             {
-                gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
-                
-                HandleTurn(CurrentPlayer.GetChoiceOfCell());
-            }
-             
+                turn = CurrentPlayer.GetChoiceOfCell();
+                if (!GameGrid.UpdateGrid(turn, CurrentPlayer))
+                {
+                    //if not valid show try again text
+                    gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
 
+                }
+                else
+                {
+                    //if valid turn check for win & update commentary
+                    gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
+                    gameWindow.UpdateCommentary(CheckForWin());
+                    taken = true;
+
+                }
+            }
         }
 
 
