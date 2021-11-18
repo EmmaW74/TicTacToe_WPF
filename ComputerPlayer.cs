@@ -27,20 +27,12 @@ namespace TicTacToe_WPF
             TryAgainText = $"{PlayerName}'s turn isn't valid, trying again...";
         }
 
+        //Returns random choice of cell for computer player
         override public int GetChoiceOfCell()
         {
-            //random grid choice generator to go here
-
-
             Random randomChoice = new Random();
-
             int turnTaken = randomChoice.Next(0,9);
-
-           // Thread.Sleep(300);
-
-            return turnTaken;
-
-          
+            return turnTaken;        
         }
     }
 }

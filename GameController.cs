@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace TicTacToe_WPF
 {
@@ -21,80 +22,90 @@ namespace TicTacToe_WPF
 
         public GameController(MainWindow wnd)
         {
-           
             User1 = new UserPlayer("Emma", MyRenderer);
             GameGrid = new Grid();
             User2 = new ComputerPlayer(MyRenderer);
             gameWindow = wnd;
-
-
         }
 
         // public void StartGame(){} - You'll choose between 1 and 2 players
 
+        //Starts game
         public void RunGame()
         {
             gameRunning = true;
             CurrentPlayer = User1;
             gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
-
         }
 
-        //public void EndGame(){} - do something when the game finishes
-
-        public void HandleTurn(int turn)
-        {   
-            
-            //check if valid using update grid
+        
+        //Handles user turn to update grid and check for win
+        public bool HandleUserTurn(int turn)
+        {
             if (!GameGrid.UpdateGrid(turn, CurrentPlayer))
             {
-                //if not show try again text
-                 gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
-               
+                //if grid not successfully updated, show try again text and return false
+                gameWindow.UpdateTextHelper(() =>
+                {
+                    gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
+                });
+                return false;
             }
             else
             {
-                //if valid turn check for win & update commentary
-                 gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
-                 gameWindow.UpdateCommentary(CheckForWin());
-             
-           
-            }
-
-            
-
-           
+                //update button name and check for win
+                gameWindow.UpdateTextHelper(() =>
+                {
+                    gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
+                });
+                gameWindow.UpdateTextHelper(() =>
+                {
+                    gameWindow.UpdateCommentary(CheckForWin());
+                });
+                return true;
+            }        
         }
+
+        //Handles computer turn to update grid and check for win (LOOK AT COMBINING THIS WITH HANDLE USER TURN)
         public void HandleComputerTurn()
         {
-            gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
-            int turn;
-            bool taken = false;
-            while (!taken)
+            if (gameRunning==true)
             {
-                turn = CurrentPlayer.GetChoiceOfCell();
-                if (!GameGrid.UpdateGrid(turn, CurrentPlayer))
+                System.Diagnostics.Trace.WriteLine($"Game running: {gameRunning}");
+                gameWindow.UpdateTextHelper(() =>
                 {
-                    //if not valid show try again text
-                    gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
+                    gameWindow.UpdateCommentary(CurrentPlayer.TakeTurnText);
+                });
 
-                }
-                else
+                int turn;
+                bool taken = false;
+                while (!taken)
                 {
-                    //if valid turn check for win & update commentary
-                    gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
-                    gameWindow.UpdateCommentary(CheckForWin());
-                    taken = true;
-
+                    turn = CurrentPlayer.GetChoiceOfCell();
+                    if (!GameGrid.UpdateGrid(turn, CurrentPlayer))
+                    {
+                        //if grid not successfully updated, show try again text
+                        gameWindow.UpdateTextHelper(() =>
+                        {
+                            gameWindow.UpdateCommentary(CurrentPlayer.TryAgainText);
+                        });
+                    }
+                    else
+                    {
+                        //if turn is valid, update button text and check for win
+                        gameWindow.UpdateTextHelper(() =>
+                        {
+                            gameWindow.UpdateButton(turn.ToString(), CurrentPlayer.NoughtOrCross);
+                        });
+                        gameWindow.UpdateTextHelper(() =>
+                        {
+                            gameWindow.UpdateCommentary(CheckForWin());
+                        });
+                        taken = true;
+                    }
                 }
+                Thread.Sleep(3000);
             }
-        }
-
-
-
-        public bool ValidateTurn(int turn)
-        {
-            return GameGrid.UpdateGrid(turn, CurrentPlayer); //Checks if turn is valid
         }
 
         public string CheckForWin() 
@@ -103,23 +114,25 @@ namespace TicTacToe_WPF
             {
                 gameRunning = false;
                 return CurrentPlayer.GameWonText;
-                
             }
             else if (GameGrid.CheckWinOrDraw() == WinOrDraw.DRAW)
             {
                 gameRunning = false;
-                return "It's a draw";
-                
+                return "It's a draw";  
             } 
             else
             {
-                
                 CurrentPlayer = (CurrentPlayer == User1) ? User2 : User1;
-                //return null;
                 return CurrentPlayer.TakeTurnText;
             }
-            
         }
+
+        public void EndGame(){
+            Thread.Sleep(3000);
+            GameOver gameOverWindow = new GameOver();
+            gameOverWindow.Show();
+
+        } 
 
 
     }

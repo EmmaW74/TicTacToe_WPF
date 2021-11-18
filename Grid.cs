@@ -27,7 +27,7 @@ namespace TicTacToe_WPF
 
         public Grid()
         {
-            //creats array of null values for grid
+            //creates array of null values for grid
             gridDimension = 3;
             turnsTaken = 0;
             newGameBoard = new Nullable<bool>[gridDimension * gridDimension];
@@ -47,16 +47,17 @@ namespace TicTacToe_WPF
                 {
                     case Token.X:
                         newGameBoard[move] = true;
-
+                        System.Diagnostics.Trace.WriteLine($"Updating: {currentPlayer.PlayerName},{currentPlayer.NoughtOrCross}");
                         break;
                     case Token.O:
                         newGameBoard[move] = false;
-
+                        System.Diagnostics.Trace.WriteLine($"Updating: {currentPlayer.PlayerName},{currentPlayer.NoughtOrCross}");
                         break;
                     default:
-                        newGameBoard[move] = true;
-
-                        break;
+                        //newGameBoard[move] = null;
+                        System.Diagnostics.Trace.WriteLine($"Updating: default - return false");
+                        return false;
+                        //break;
                 }
                 turnsTaken++;
                 return true;
@@ -79,15 +80,19 @@ namespace TicTacToe_WPF
             {
                 if (Array.TrueForAll(line, XWins) || Array.TrueForAll(line, OWins))
                 {
+                   
                     return WinOrDraw.WIN;
 
                 }
             }
             if (turnsTaken == (gridDimension * gridDimension))
             {
+                
                 return WinOrDraw.DRAW;
             }
+            
             return WinOrDraw.NONE;
+
 
         }
 

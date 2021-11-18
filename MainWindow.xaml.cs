@@ -23,6 +23,7 @@ namespace TicTacToe_WPF
     /// 
 
     public delegate void MyDelegate(object sender, RoutedEventArgs e);
+    public delegate void UpdateTextDelegate(string newString);
 
     public partial class MainWindow : Window
     {
@@ -50,10 +51,33 @@ namespace TicTacToe_WPF
         public void turn_Click(object sender, RoutedEventArgs e)
         {
 
-            string turn = (sender as Button).Tag.ToString();
-            newGame.HandleTurn(Int32.Parse(turn));
-            Thread.Sleep(1000);
-            newGame.HandleComputerTurn();
+            string userTurn = (sender as Button).Tag.ToString();
+            ThreadStart start = delegate ()
+            {
+                /*if (newGame.HandleUserTurn(Int32.Parse(userTurn)))
+                {
+                    Thread.Sleep(3000);
+                    
+                    newGame.HandleComputerTurn();
+                    
+                }*/
+                if (newGame.gameRunning)
+                {
+                    newGame.HandleUserTurn(Int32.Parse(userTurn));
+                }
+
+                Thread.Sleep(3000);
+                if (newGame.gameRunning)
+                {
+                    newGame.HandleComputerTurn();
+                }
+
+
+            };
+            new Thread(start).Start();
+            
+            //Thread.Sleep(1000);
+            
             
         }
        
@@ -66,6 +90,16 @@ namespace TicTacToe_WPF
                     x.Content = token;
                 }
             }
+        }
+
+        public void UpdateTextHelper(Action action)
+        {
+            
+                if (!Dispatcher.CheckAccess())
+                    Dispatcher.BeginInvoke(action);
+                else
+                    action.Invoke();
+            
         }
 
        
