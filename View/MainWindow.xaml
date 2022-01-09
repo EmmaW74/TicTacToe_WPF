@@ -1,0 +1,131 @@
+﻿<Window x:Class="TicTacToe_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicTacToe_WPF"
+        xmlns:vm="clr-namespace:TicTacToe_WPF.ViewModel"
+        xmlns:converters="clr-namespace:TicTacToe_WPF.ViewModel.ValueConverters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="450">
+    <Window.Resources>
+        <vm:TicTacToeVM x:Key="vm" />
+        <converters:BoolToXOConverter x:Key="IntToXO" />
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource vm}" Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="5"
+                   Text="Tic Tac Toe"
+                   FontFamily="Bradley Hand ITC"
+                   FontSize="30"
+                   HorizontalAlignment="Center"
+                   Margin="0 20 0 20"
+                   Padding="20"
+                   FontWeight="Bold" />
+        <Button Grid.Row="1"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="0"
+                Content="{Binding GameGrid(0), Converter={StaticResource IntToXO}}"
+                Grid.Column="1"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="0 0 5 5"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="1" 
+                Grid.Column="2"
+                VerticalAlignment="Stretch"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5 0 5 5"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="1" 
+                Grid.Column="3"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5 0 0 5"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="2" 
+                Grid.Column="1"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="0 5 5 5"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="2" 
+                Grid.Column="2"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="2" 
+                Grid.Column="3"
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5 5 0 5"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="3" 
+                Grid.Column="1"
+                
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="0 5 5 0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="3" 
+                Grid.Column="2"
+                
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5 5 5 0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <Button Grid.Row="3" 
+                Grid.Column="3"
+                
+                Background="white"
+                BorderBrush="DarkSlateGray" 
+                BorderThickness="5 5 0 0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                FontFamily="Bradley Hand ITC"/>
+        <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
+                   Grid.Row="4"
+                   Grid.ColumnSpan="5"
+                   FontSize="20" 
+                   HorizontalAlignment="Center"
+                   FontFamily="Bradley Hand ITC"
+                   Margin="0 20 0 20" 
+                   Padding="20" 
+                   FontWeight="Bold" />
+    </Grid>
+
+
+
+</Window>

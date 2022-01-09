@@ -10,6 +10,7 @@ namespace TicTacToe_WPF
     class GameController
     //Stores game elements and controls flow
     {
+        /*
         public UserPlayer User1 { get; set; }
         public Player User2 { get; set; }
         public Grid GameGrid { get; set; }
@@ -17,7 +18,7 @@ namespace TicTacToe_WPF
         public bool gameRunning;
         public Player CurrentPlayer { get; set; }
         public MainWindow gameWindow { get; }
-        int Event { get; set; }
+        
 
 
         public GameController(MainWindow wnd)
@@ -132,7 +133,7 @@ namespace TicTacToe_WPF
             GameOver gameOverWindow = new GameOver();
             gameOverWindow.Show();
 
-        } 
+        } */
 
 
     }

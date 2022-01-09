@@ -55,11 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ButtonClickCommand.cs" />
+    <Compile Include="ViewModel\TicTacToeVM.cs" />
     <Page Include="GameOver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,17 +69,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="Helpers\TicTacToeHelper.cs" />
+    <Compile Include="Model\ComputerPlayer.cs" />
     <Compile Include="ConsoleRender.cs" />
     <Compile Include="GameOver.xaml.cs">
       <DependentUpon>GameOver.xaml</DependentUpon>
     </Compile>
     <Compile Include="IRender.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="UserPlayer.cs" />
+    <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\UserPlayer.cs" />
     <Compile Include="GameController.cs" />
-    <Compile Include="Grid.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Model\Grid.cs" />
+    <Compile Include="ViewModel\ValueConverters\BoolToXOConverter.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

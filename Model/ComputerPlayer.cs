@@ -10,21 +10,24 @@ namespace TicTacToe_WPF
     {
 
         ConsoleRender gameConsole;
+        override public int PlayerID { get; set; }
         override public string PlayerName { get; set; }
         override public Token NoughtOrCross { get; }
         override public string TakeTurnText { get; }
         override public string TryAgainText { get; }
         override public string GameWonText { get; }
+        override public string DrawText { get; }
 
 
-        public ComputerPlayer(ConsoleRender consoleInterface)
+        public ComputerPlayer()
         {
             PlayerName = "Bob"; //Add random list
-            gameConsole = consoleInterface;
+            PlayerID = 2;
             NoughtOrCross = Token.O;
             TakeTurnText = $"{PlayerName} is taking their turn...";
             GameWonText = $"{PlayerName} wins! Better luck next time.";
             TryAgainText = $"{PlayerName}'s turn isn't valid, trying again...";
+            DrawText = $"It's a draw!";
         }
 
         //Returns random choice of cell for computer player

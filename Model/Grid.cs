@@ -12,7 +12,7 @@ namespace TicTacToe_WPF
         NONE
     }
 
-    class Grid
+    public class Grid
     //Stores grid and manages updates and win checking
     {
         //public Nullable<bool>[,] GameBoard { get; set; } //Auto property for get and set
@@ -37,7 +37,7 @@ namespace TicTacToe_WPF
             }
         }
 
-
+        /*
         public bool UpdateGrid(int move, Player currentPlayer)
         {
             // move is cell no 0 to 9
@@ -69,7 +69,31 @@ namespace TicTacToe_WPF
             }
 
         }
+        */
+        public bool UpdateGrid(int chosenCell, Player currentPlayer)
+        {
+            // move is cell no 0 to 9
+            if (newGameBoard[chosenCell] == null)
+            {
+                if (currentPlayer.PlayerID == 1)
+                {
+                    newGameBoard[chosenCell] = true;
+                }
+                else
+                {
+                    newGameBoard[chosenCell] = false;
+                }
+               
+                turnsTaken++;
+                return true;
+            }
+            else
+            {
 
+                return false;
+            }
+
+        }
         public WinOrDraw CheckWinOrDraw()
         {
             //Creates array of rows, columns and diagonals then checks if any has all true or all false values
