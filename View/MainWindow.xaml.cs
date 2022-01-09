@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
-
+using TicTacToe_WPF.ViewModel;
 
 namespace TicTacToe_WPF
 {
@@ -28,10 +28,17 @@ namespace TicTacToe_WPF
     public partial class MainWindow : Window
     {
         public MainWindow AppWindow;
-        private GameController newGame;
-        public MyDelegate myDel;
+        //private GameController newGame;
+        //public MyDelegate myDel;
 
-
+        public TicTacToeVM newGame;
+        public MainWindow()
+        {
+            InitializeComponent();
+            newGame = new TicTacToeVM();
+            newGame.RunGame();
+        }
+        /*
         public MainWindow()
         {
             AppWindow = this;
@@ -42,11 +49,11 @@ namespace TicTacToe_WPF
             
         }
               
-
+        
         public void UpdateCommentary(string newText)
         {
             commentary.Text = newText;
-        }
+        } 
 
         public void turn_Click(object sender, RoutedEventArgs e)
         {
@@ -60,7 +67,7 @@ namespace TicTacToe_WPF
                     
                     newGame.HandleComputerTurn();
                     
-                }*/
+                }
                 if (newGame.gameRunning)
                 {
                     newGame.HandleUserTurn(Int32.Parse(userTurn));
@@ -102,6 +109,29 @@ namespace TicTacToe_WPF
             
         }
 
-       
+        private void YesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetGame();
+        }
+
+        private void NoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ResetGame()
+        {
+            foreach (Control element in MyGrid.Children)
+            {
+               if (element.GetType().ToString() == "Button")
+                {
+                    (element as Button).Content = "";
+                }
+            }
+
+            UpdateCommentary("");
+    
+        } */
+
     }
 }
