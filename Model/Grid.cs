@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace TicTacToe_WPF
 {
@@ -15,13 +16,8 @@ namespace TicTacToe_WPF
     public class Grid
     //Stores grid and manages updates and win checking
     {
-        //public Nullable<bool>[,] GameBoard { get; set; } //Auto property for get and set
-
         public Nullable<bool> [] newGameBoard { get; set; }
-
-
-
-        private ConsoleRender gameConsole;
+        public ObservableCollection<Nullable<bool>> gridCollectionTest { get; set; }
         private int gridDimension { get; set; }
         private int turnsTaken { get; set; }
 
@@ -34,6 +30,11 @@ namespace TicTacToe_WPF
             for (int x = 0; x < gridDimension*gridDimension; x++)
             {
                 newGameBoard[x] = null;
+            }
+            gridCollectionTest = new ObservableCollection<Nullable<bool>>();
+            for (int x = 0; x < gridDimension * gridDimension; x++)
+            {
+                gridCollectionTest.Add(null);
             }
         }
 
@@ -94,10 +95,35 @@ namespace TicTacToe_WPF
             }
 
         }
+
+        public bool UpdateGridTest(int chosenCell, Player currentPlayer)
+        {
+            // move is cell no 0 to 9
+            if (gridCollectionTest[chosenCell] == null)
+            {
+                if (currentPlayer.PlayerID == 1)
+                {
+                    gridCollectionTest[chosenCell] = true;
+                }
+                else
+                {
+                    gridCollectionTest[chosenCell] = false;
+                }
+
+                turnsTaken++;
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+
+        }
         public WinOrDraw CheckWinOrDraw()
         {
             //Creates array of rows, columns and diagonals then checks if any has all true or all false values
-            Nullable<bool>[][] linesToCheck = {GetColumn(0),GetColumn(2),GetColumn(2),
+            Nullable<bool>[][] linesToCheck = {GetColumn(0),GetColumn(1),GetColumn(2),
             GetRow(0),GetRow(1),GetRow(2), GetDiagonal(0),GetDiagonal(1)};
 
             foreach (Nullable<bool>[] line in linesToCheck)
@@ -181,11 +207,11 @@ namespace TicTacToe_WPF
             //use modulus 3 to identify items & extract into a fresh array
             Nullable<bool>[] temp = new Nullable<bool> [gridDimension];
             int pos = 0;
-            for(int x = 0; x < newGameBoard.Length; x++)
+            for(int x = 0; x < gridCollectionTest.Count; x++)
             {
                 if (x%3 == columnNo)
                 {
-                    temp[pos] = newGameBoard[x];
+                    temp[pos] = gridCollectionTest[x];
                     pos++;
                 }
             }
@@ -194,9 +220,18 @@ namespace TicTacToe_WPF
 
         private Nullable<bool>[] GetRow(int rowNo)
         {
-            //start is rowNo, end is rowNo + 2 - extract range into new array
+            //start is rowNo*3, end is rowNo*3 + 2 - extract range into new array
             Nullable<bool>[] temp = new Nullable<bool>[gridDimension];
-            Array.Copy(newGameBoard, rowNo, temp, 0, gridDimension);
+            //Array.Copy(newGameBoard, rowNo, temp, 0, gridDimension);
+            int start = rowNo * 3;
+            int y = 0;
+            for (int x = start; x <= start + 2; x++)
+            {
+                temp[y] = gridCollectionTest[x];
+                y++;
+            }
+
+            
             return temp;
         }
 
@@ -206,9 +241,9 @@ namespace TicTacToe_WPF
             int pos = 0;
             if (direction == 1)
             {
-                for (int x = 0; x < newGameBoard.Length;)
+                for (int x = 0; x < gridCollectionTest.Count;)
                 {
-                    tempArray[pos] = newGameBoard[x];
+                    tempArray[pos] = gridCollectionTest[x];
                     x += (gridDimension + 1);
                     pos++;
                 }
@@ -218,7 +253,7 @@ namespace TicTacToe_WPF
                 int x = (gridDimension - 1);
                 for (pos = 0; pos < gridDimension; pos++)
                 {
-                    tempArray[pos] = newGameBoard[x];
+                    tempArray[pos] = gridCollectionTest[x];
                     x += (gridDimension - 1);
                     
                 }

@@ -12,13 +12,17 @@ namespace TicTacToe_WPF.ViewModel.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool IsUser1 = (bool) value;
-            if (IsUser1)
+            Nullable<bool> GridValue = (Nullable<bool>) value;
+            if (GridValue == true)
             {
                 return "X";
-            } else
+            } else if (GridValue == false)
             {
                 return "O";
+            }
+            else
+            {
+                return "";
             }
         }
 

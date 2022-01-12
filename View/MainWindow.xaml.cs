@@ -34,9 +34,10 @@ namespace TicTacToe_WPF
         public TicTacToeVM newGame;
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
             newGame = new TicTacToeVM();
-            newGame.RunGame();
+            //newGame.RunGame();
+            InitializeComponent();
         }
         /*
         public MainWindow()
