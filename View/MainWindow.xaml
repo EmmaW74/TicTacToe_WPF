@@ -9,8 +9,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="450">
     <Window.Resources>
-        <vm:TicTacToeVM x:Key="vm" />
-        <converters:BoolToXOConverter x:Key="IntToXO" />
+        <vm:TicTacToeVM x:Key="vm"/>
+        
+        <converters:BoolToXOConverter x:Key="BoolToXO" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
 
     <Grid DataContext="{StaticResource vm}" Background="AntiqueWhite">
@@ -38,83 +40,128 @@
                    Padding="20"
                    FontWeight="Bold" />
         <Button Grid.Row="1"
+                Content="{Binding GameGrid.gridCollectionTest[0],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="0"
-                Content="{Binding GameGrid(0), Converter={StaticResource IntToXO}}"
                 Grid.Column="1"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="0 0 5 5"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="1" 
                 Grid.Column="2"
+                Content="{Binding GameGrid.gridCollectionTest[1],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="1"
                 VerticalAlignment="Stretch"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5 0 5 5"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="1" 
                 Grid.Column="3"
+                Content="{Binding GameGrid.gridCollectionTest[2],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="2"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5 0 0 5"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="2" 
                 Grid.Column="1"
+                Content="{Binding GameGrid.gridCollectionTest[3],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="3"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="0 5 5 5"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="2" 
                 Grid.Column="2"
+                Content="{Binding GameGrid.gridCollectionTest[4],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="4"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="2" 
                 Grid.Column="3"
+                Content="{Binding GameGrid.gridCollectionTest[5],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="5"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5 5 0 5"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="3" 
                 Grid.Column="1"
-                
+                Content="{Binding GameGrid.gridCollectionTest[6],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="6"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="0 5 5 0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="3" 
                 Grid.Column="2"
-                
+                Content="{Binding GameGrid.gridCollectionTest[7],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="7"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5 5 5 0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
         <Button Grid.Row="3" 
                 Grid.Column="3"
-                
+                Content="{Binding GameGrid.gridCollectionTest[8],Converter={StaticResource BoolToXO}}"
+                Command="{Binding ButtonClickCommand}"
+                CommandParameter="8"
                 Background="white"
                 BorderBrush="DarkSlateGray" 
                 BorderThickness="5 5 0 0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                FontFamily="Bradley Hand ITC"/>
+                FontFamily="Bradley Hand ITC"
+                FontSize="30"/>
+        <Button Grid.Row="4" 
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                BorderBrush="DarkSlateGray"
+                BorderThickness="2"
+                FontFamily="Bradley Hand ITC"
+                FontSize="20"
+                FontWeight="Bold"
+                Padding="10"
+                VerticalAlignment="Center"
+                
+                Content="Start game"
+                Command="{Binding StartButtonCommand}"
+                Visibility="{Binding AwaitingStart, 
+                             Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
                    Grid.Row="4"
                    Grid.ColumnSpan="5"
@@ -123,7 +170,9 @@
                    FontFamily="Bradley Hand ITC"
                    Margin="0 20 0 20" 
                    Padding="20" 
-                   FontWeight="Bold" />
+                   FontWeight="Bold" 
+                   Visibility="{Binding ShowCommentary, 
+                             Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 
 

@@ -8,8 +8,6 @@ namespace TicTacToe_WPF
     class ComputerPlayer : Player
     //Player controlled by app
     {
-
-        ConsoleRender gameConsole;
         override public int PlayerID { get; set; }
         override public string PlayerName { get; set; }
         override public Token NoughtOrCross { get; }
