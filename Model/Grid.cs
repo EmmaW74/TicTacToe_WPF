@@ -13,101 +13,42 @@ namespace TicTacToe_WPF
         NONE
     }
 
-    public class Grid
-    //Stores grid and manages updates and win checking
+    public enum Diagonal
     {
-        public Nullable<bool> [] newGameBoard { get; set; }
-        public ObservableCollection<Nullable<bool>> gridCollectionTest { get; set; }
+        FROMTOPLEFT,
+        FROMTOPRIGHT
+    }
+
+    public class Grid
+    //Creates gameboard and manages updates and win checking
+    {
+        public ObservableCollection<Nullable<bool>> gameBoard { get; set; }
         private int gridDimension { get; set; }
         private int turnsTaken { get; set; }
 
         public Grid()
         {
-            //creates array of null values for grid
             gridDimension = 3;
             turnsTaken = 0;
-            newGameBoard = new Nullable<bool>[gridDimension * gridDimension];
-            for (int x = 0; x < gridDimension*gridDimension; x++)
-            {
-                newGameBoard[x] = null;
-            }
-            gridCollectionTest = new ObservableCollection<Nullable<bool>>();
+            gameBoard = new ObservableCollection<Nullable<bool>>();
             for (int x = 0; x < gridDimension * gridDimension; x++)
             {
-                gridCollectionTest.Add(null);
+                gameBoard.Add(null);
             }
         }
 
-        /*
-        public bool UpdateGrid(int move, Player currentPlayer)
-        {
-            // move is cell no 0 to 9
-            if (newGameBoard[move] == null)
-            {
-                switch (currentPlayer.NoughtOrCross)
-                {
-                    case Token.X:
-                        newGameBoard[move] = true;
-                        System.Diagnostics.Trace.WriteLine($"Updating: {currentPlayer.PlayerName},{currentPlayer.NoughtOrCross}");
-                        break;
-                    case Token.O:
-                        newGameBoard[move] = false;
-                        System.Diagnostics.Trace.WriteLine($"Updating: {currentPlayer.PlayerName},{currentPlayer.NoughtOrCross}");
-                        break;
-                    default:
-                        //newGameBoard[move] = null;
-                        System.Diagnostics.Trace.WriteLine($"Updating: default - return false");
-                        return false;
-                        //break;
-                }
-                turnsTaken++;
-                return true;
-            }
-            else
-            {
-               
-                return false;
-            }
-
-        }
-        */
         public bool UpdateGrid(int chosenCell, Player currentPlayer)
         {
             // move is cell no 0 to 9
-            if (newGameBoard[chosenCell] == null)
+            if (gameBoard[chosenCell] == null)
             {
                 if (currentPlayer.PlayerID == 1)
                 {
-                    newGameBoard[chosenCell] = true;
+                    gameBoard[chosenCell] = true;
                 }
                 else
                 {
-                    newGameBoard[chosenCell] = false;
-                }
-               
-                turnsTaken++;
-                return true;
-            }
-            else
-            {
-
-                return false;
-            }
-
-        }
-
-        public bool UpdateGridTest(int chosenCell, Player currentPlayer)
-        {
-            // move is cell no 0 to 9
-            if (gridCollectionTest[chosenCell] == null)
-            {
-                if (currentPlayer.PlayerID == 1)
-                {
-                    gridCollectionTest[chosenCell] = true;
-                }
-                else
-                {
-                    gridCollectionTest[chosenCell] = false;
+                    gameBoard[chosenCell] = false;
                 }
 
                 turnsTaken++;
@@ -124,30 +65,22 @@ namespace TicTacToe_WPF
         {
             //Creates array of rows, columns and diagonals then checks if any has all true or all false values
             Nullable<bool>[][] linesToCheck = {GetColumn(0),GetColumn(1),GetColumn(2),
-            GetRow(0),GetRow(1),GetRow(2), GetDiagonal(0),GetDiagonal(1)};
+            GetRow(0),GetRow(1),GetRow(2), GetDiagonal(Diagonal.FROMTOPLEFT),GetDiagonal(Diagonal.FROMTOPRIGHT)};
 
             foreach (Nullable<bool>[] line in linesToCheck)
             {
                 if (Array.TrueForAll(line, XWins) || Array.TrueForAll(line, OWins))
                 {
-                   
                     return WinOrDraw.WIN;
-
                 }
             }
             if (turnsTaken == (gridDimension * gridDimension))
             {
-                
                 return WinOrDraw.DRAW;
             }
-            
             return WinOrDraw.NONE;
-
-
         }
 
-
-        Predicate<Nullable<bool>> predicateTrue = XWins;
         private static bool XWins(Nullable<bool> itemToCheck)
         {
             if (itemToCheck == true)
@@ -160,7 +93,6 @@ namespace TicTacToe_WPF
             }
         }
 
-        Predicate<Nullable<bool>> predicateFalse = OWins;
         private static bool OWins(Nullable<bool> itemToCheck)
         {
             if (itemToCheck == false)
@@ -173,77 +105,46 @@ namespace TicTacToe_WPF
             }
         }
 
-
-        private int mapColumn(char row)
-        {
-            switch (row)
-            {
-                case 'A': return 0;
-                case 'B': return 1;
-                case 'C': return 2;
-                default: return 0;
-            }
-        }
-
-        private int mapRow(char column)
-        {
-            return (int)Char.GetNumericValue(column) - 1;
-        }
-
-
-        private static bool CheckX(Nullable<bool> value)
-        {
-            return (value == true);
-        }
-
-        private bool CheckO(Nullable<bool> value)
-        {
-            return (value == false);
-        }
-
-
         private Nullable<bool>[] GetColumn(int columnNo)
         {
-            //use modulus 3 to identify items & extract into a fresh array
-            Nullable<bool>[] temp = new Nullable<bool> [gridDimension];
+            //Returns array of the values in the given column number
+            Nullable<bool>[] columnArray = new Nullable<bool> [gridDimension];
             int pos = 0;
-            for(int x = 0; x < gridCollectionTest.Count; x++)
+            for(int x = 0; x < gameBoard.Count; x++)
             {
                 if (x%3 == columnNo)
                 {
-                    temp[pos] = gridCollectionTest[x];
+                    columnArray[pos] = gameBoard[x];
                     pos++;
                 }
             }
-            return temp;
+            return columnArray;
         }
 
         private Nullable<bool>[] GetRow(int rowNo)
         {
-            //start is rowNo*3, end is rowNo*3 + 2 - extract range into new array
-            Nullable<bool>[] temp = new Nullable<bool>[gridDimension];
-            //Array.Copy(newGameBoard, rowNo, temp, 0, gridDimension);
+            //Returns array of the values in the given row number
+            Nullable<bool>[] rowArray = new Nullable<bool>[gridDimension];
             int start = rowNo * 3;
             int y = 0;
             for (int x = start; x <= start + 2; x++)
             {
-                temp[y] = gridCollectionTest[x];
+                rowArray[y] = gameBoard[x];
                 y++;
             }
-
-            
-            return temp;
+            return rowArray;
         }
 
-        private Nullable<bool>[] GetDiagonal(int direction) //direction should be 0 or 1 - can I have an enum for this?
+        private Nullable<bool>[] GetDiagonal(Diagonal direction) 
         {
-            Nullable<bool>[] tempArray = new Nullable<bool>[gridDimension];
+            //Returns array of the values in the given diagonal
+            Nullable<bool>[] diagonalArray = new Nullable<bool>[gridDimension];
             int pos = 0;
-            if (direction == 1)
+            if (direction == Diagonal.FROMTOPLEFT)
             {
-                for (int x = 0; x < gridCollectionTest.Count;)
+                for (int x = 0; x < gameBoard.Count;)
                 {
-                    tempArray[pos] = gridCollectionTest[x];
+                    diagonalArray[pos] = gameBoard[x];
                     x += (gridDimension + 1);
                     pos++;
                 }
@@ -253,12 +154,11 @@ namespace TicTacToe_WPF
                 int x = (gridDimension - 1);
                 for (pos = 0; pos < gridDimension; pos++)
                 {
-                    tempArray[pos] = gridCollectionTest[x];
+                    diagonalArray[pos] = gameBoard[x];
                     x += (gridDimension - 1);
-                    
                 }
             }
-            return tempArray;
+            return diagonalArray;
         }
     }
 }

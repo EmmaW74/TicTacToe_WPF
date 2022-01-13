@@ -11,6 +11,7 @@ using TicTacToe_WPF.Commands;
 //TO DO LIST
 //Tidy code
 //Review public/private
+//Add random name list for computer player
 //Look at template bookmark for disabled button style
 //Look at creating a style for the buttons (inc rounded corners for start button)
 //Sort colours - diff colour for x and o? 
@@ -68,6 +69,17 @@ namespace TicTacToe_WPF.ViewModel
                 
             }
         }
+        private bool gameOver;
+        public bool GameOver
+        {
+            get { return gameOver; }
+            set
+            {
+                gameOver = value;
+                OnPropertyChanged("GameOver");
+
+            }
+        }
         private bool showCommentary;
         public bool ShowCommentary
         {
@@ -94,6 +106,7 @@ namespace TicTacToe_WPF.ViewModel
             StartButtonCommand = new StartButtonCommand(this);
             ShowCommentary = false;
             GameRunning = false;
+            GameOver = false;
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -113,8 +126,7 @@ namespace TicTacToe_WPF.ViewModel
         {
             Commentary = newText;
         }
-             
-
+            
         public async void TakeTurn(int chosenCell)
         {
             bool turnComplete = false;
@@ -131,7 +143,7 @@ namespace TicTacToe_WPF.ViewModel
                     turn = CurrentPlayer.GetChoiceOfCell();
                 }
 
-                if (GameGrid.UpdateGridTest(turn, CurrentPlayer))
+                if (GameGrid.UpdateGrid(turn, CurrentPlayer))
                 {
                     WinOrDraw result = GameGrid.CheckWinOrDraw();
                     if (result == WinOrDraw.WIN)
@@ -150,22 +162,16 @@ namespace TicTacToe_WPF.ViewModel
                     {
                         if (CurrentPlayer == User1)
                         {
-
                             CurrentPlayer = User2;
-                            
                             UpdateCommentary(CurrentPlayer.TakeTurnText);
                             await Task.Delay(3000);
                             CommandManager.InvalidateRequerySuggested();
-
-
                         }
                         else
                         {
                             CurrentPlayer = User1;
-                            turnComplete = true;
-                            
-                        }
-                        
+                            turnComplete = true; 
+                        } 
                     }
                 }
                 else
@@ -174,19 +180,9 @@ namespace TicTacToe_WPF.ViewModel
                     if (CurrentPlayer == User1)
                     {
                         turnComplete = true;
-                        //return false;
                     }
-                   
                 }
-                
             }
-            //return true;
-           
         }
-
-
-
-
-
     }
 }

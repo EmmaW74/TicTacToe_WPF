@@ -12,7 +12,7 @@ namespace TicTacToe_WPF.Commands
     {
         public TicTacToeVM VM { get; set; }
 
-        public event EventHandler CanExecuteChanged //Need to find out how to execute this when game running is updated
+        public event EventHandler CanExecuteChanged
         {
             add
             {
@@ -39,13 +39,12 @@ namespace TicTacToe_WPF.Commands
             {
                 return false;
             }
-            //need to add validation
         }
 
         public void Execute(object parameter)
         {
-            int temp = Convert.ToInt32(parameter);
-            VM.TakeTurn(temp);
+            int chosenCell = Convert.ToInt32(parameter);
+            VM.TakeTurn(chosenCell);
         }
     }
 }
