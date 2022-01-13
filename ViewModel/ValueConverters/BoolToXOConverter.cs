@@ -16,7 +16,8 @@ namespace TicTacToe_WPF.ViewModel.ValueConverters
             if (GridValue == true)
             {
                 return "X";
-            } else if (GridValue == false)
+            } 
+            else if (GridValue == false)
             {
                 return "O";
             }
@@ -25,10 +26,11 @@ namespace TicTacToe_WPF.ViewModel.ValueConverters
                 return "";
             }
         }
-
+        
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

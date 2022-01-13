@@ -58,10 +58,6 @@
     <Compile Include="Commands\ButtonClickCommand.cs" />
     <Compile Include="Commands\StartButtonCommand.cs" />
     <Compile Include="ViewModel\TicTacToeVM.cs" />
-    <Page Include="GameOver.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,14 +68,8 @@
     </Compile>
     <Compile Include="Helpers\TicTacToeHelper.cs" />
     <Compile Include="Model\ComputerPlayer.cs" />
-    <Compile Include="ConsoleRender.cs" />
-    <Compile Include="GameOver.xaml.cs">
-      <DependentUpon>GameOver.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="IRender.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\UserPlayer.cs" />
-    <Compile Include="GameController.cs" />
     <Compile Include="Model\Grid.cs" />
     <Compile Include="ViewModel\ValueConverters\BoolToXOConverter.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
