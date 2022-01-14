@@ -160,5 +160,14 @@ namespace TicTacToe_WPF
             }
             return diagonalArray;
         }
+
+        public void ClearGrid()
+        {
+            for (int x = 0; x < gridDimension * gridDimension; x++)
+            {
+                gameBoard[x] = null;
+                turnsTaken = 0;
+            }
+        }
     }
 }

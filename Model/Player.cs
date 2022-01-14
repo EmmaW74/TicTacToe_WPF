@@ -17,6 +17,7 @@ namespace TicTacToe_WPF
         abstract public int PlayerID { get; set; }
         abstract public string PlayerName { get; set; }
         abstract public Token NoughtOrCross { get; }
+        abstract public string FirstTurnText { get; }
         abstract public string TakeTurnText { get; }
         abstract public string TryAgainText { get; }
         abstract public string GameWonText { get; }

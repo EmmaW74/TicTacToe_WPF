@@ -35,8 +35,20 @@ namespace TicTacToe_WPF.Commands
 
         public void Execute(object parameter)
         {
-
-            VM.RunGame();
+            string value = parameter as string;
+            MainWindow window = parameter as MainWindow;
+            if (value == "start")
+            {
+                VM.RunGame();
+            } else if (value == "newgame")
+            {
+                VM.ResetGame();
+            }
+            else
+            {
+                VM.ExitGame(window);
+            }
+            
         }
     }
 }

@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TicTacToe_WPF.Commands;
+using TicTacToe_WPF.Helpers;
 
 //TO DO LIST
-//Tidy code
 //Review public/private
 //Add random name list for computer player
+//Add functionality for next player to go first on play again.
 //Look at template bookmark for disabled button style
 //Look at creating a style for the buttons (inc rounded corners for start button)
 //Sort colours - diff colour for x and o? 
@@ -119,7 +120,7 @@ namespace TicTacToe_WPF.ViewModel
             AwaitingStart = false;
             ShowCommentary = true;
             GameRunning = true;
-            UpdateCommentary(CurrentPlayer.TakeTurnText); 
+            UpdateCommentary(currentPlayer.FirstTurnText);
         }
 
         public void UpdateCommentary(string newText)
@@ -151,12 +152,14 @@ namespace TicTacToe_WPF.ViewModel
                         UpdateCommentary(CurrentPlayer.GameWonText);
                         turnComplete = true;
                         GameRunning = false;
+                        GameOver = true;
                     }
                     else if (result == WinOrDraw.DRAW)
                     {
                         UpdateCommentary(CurrentPlayer.DrawText);
                         turnComplete = true;
                         GameRunning = false;
+                        GameOver = true;
                     }
                     else
                     {
@@ -184,5 +187,27 @@ namespace TicTacToe_WPF.ViewModel
                 }
             }
         }
+    
+        public void ResetGame()
+        {
+            //reset values and null grid boxes
+            gameOver = false;
+            gameRunning = true;
+            GameGrid.ClearGrid();
+            CurrentPlayer = User1;
+            ShowCommentary = true;
+            UpdateCommentary(currentPlayer.FirstTurnText);
+        }
+
+        public void ExitGame(MainWindow window)
+        {
+            
+            window.Close();
+        }
+
+
+
+       
+
     }
 }

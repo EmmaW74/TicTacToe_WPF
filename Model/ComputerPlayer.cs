@@ -11,6 +11,7 @@ namespace TicTacToe_WPF
         override public int PlayerID { get; set; }
         override public string PlayerName { get; set; }
         override public Token NoughtOrCross { get; }
+        override public string FirstTurnText { get; }
         override public string TakeTurnText { get; }
         override public string TryAgainText { get; }
         override public string GameWonText { get; }
@@ -22,6 +23,7 @@ namespace TicTacToe_WPF
             PlayerName = "Bob"; //Add random list
             PlayerID = 2;
             NoughtOrCross = Token.O;
+            FirstTurnText = $"{PlayerName} goes first";
             TakeTurnText = $"{PlayerName} is taking their turn...";
             GameWonText = $"{PlayerName} wins! Better luck next time.";
             TryAgainText = $"{PlayerName}'s turn isn't valid, trying again...";
