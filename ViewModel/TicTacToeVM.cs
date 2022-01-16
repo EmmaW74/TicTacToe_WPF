@@ -7,10 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TicTacToe_WPF.Commands;
-using TicTacToe_WPF.Helpers;
 
-//TO DO LIST
-//Review public/private
 
 namespace TicTacToe_WPF.ViewModel
 {
