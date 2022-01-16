@@ -11,11 +11,6 @@ using TicTacToe_WPF.Helpers;
 
 //TO DO LIST
 //Review public/private
-//Add random name list for computer player
-//Add functionality for next player to go first on play again.
-//Look at template bookmark for disabled button style
-//Look at creating a style for the buttons (inc rounded corners for start button)
-//Sort colours - diff colour for x and o? 
 
 namespace TicTacToe_WPF.ViewModel
 {
@@ -34,7 +29,6 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 currentPlayer = value;
-
                 UpdateCommentary(currentPlayer.TakeTurnText);
             }
         }
@@ -55,8 +49,6 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 gameRunning = value;
-                //OnPropertyChanged("GameRunning");
-
             }
         }
         private bool awaitingStart;
@@ -67,7 +59,6 @@ namespace TicTacToe_WPF.ViewModel
             {
                 awaitingStart = value;
                 OnPropertyChanged("AwaitingStart");
-                
             }
         }
         private bool gameOver;
@@ -78,7 +69,6 @@ namespace TicTacToe_WPF.ViewModel
             {
                 gameOver = value;
                 OnPropertyChanged("GameOver");
-
             }
         }
         private bool showCommentary;
@@ -89,7 +79,6 @@ namespace TicTacToe_WPF.ViewModel
             {
                 showCommentary = value;
                 OnPropertyChanged("ShowCommentary");
-
             }
         }
         public ButtonClickCommand ButtonClickCommand { get; set; }
@@ -98,7 +87,7 @@ namespace TicTacToe_WPF.ViewModel
 
         public TicTacToeVM()
         {
-            User1 = new UserPlayer("Emma");
+            User1 = new UserPlayer();
             GameGrid = new Grid();
             User2 = new ComputerPlayer();
             CurrentPlayer = User1;
@@ -130,20 +119,60 @@ namespace TicTacToe_WPF.ViewModel
             
         public async void TakeTurn(int chosenCell)
         {
+            // User player takes turn
             bool turnComplete = false;
             int turn;
             while (!turnComplete)
             {
                 //Update grid & check for win
-                if (CurrentPlayer == User1)
+                turn = chosenCell;          
+                if (GameGrid.UpdateGrid(turn, CurrentPlayer))
                 {
-                    turn = chosenCell;
+                    WinOrDraw result = GameGrid.CheckWinOrDraw();
+                    if (result == WinOrDraw.WIN)
+                    {
+                        UpdateCommentary(CurrentPlayer.GameWonText);
+                        turnComplete = true;
+                        GameRunning = false;
+                        GameOver = true;
+                    }
+                    else if (result == WinOrDraw.DRAW)
+                    {
+                        UpdateCommentary(CurrentPlayer.DrawText);
+                        turnComplete = true;
+                        GameRunning = false;
+                        GameOver = true;
+                    }
+                    else
+                    {                  
+                        CurrentPlayer = User2;
+                        UpdateCommentary(CurrentPlayer.TakeTurnText);
+                        await Task.Delay(3000);
+                        CommandManager.InvalidateRequerySuggested();
+                        TakeTurn();
+                        turnComplete = true;
+                    }
                 }
                 else
                 {
-                    turn = CurrentPlayer.GetChoiceOfCell();
+                    UpdateCommentary(CurrentPlayer.TryAgainText);
+                    if (CurrentPlayer == User1)
+                    {
+                        turnComplete = true;
+                    }
                 }
+            }
+        }
 
+        private void TakeTurn()
+        {
+            //computer player takes turn
+            bool turnComplete = false;
+            int turn;
+            while (!turnComplete)
+            {
+                //Update grid & check for win
+                turn = CurrentPlayer.GetChoiceOfCell();
                 if (GameGrid.UpdateGrid(turn, CurrentPlayer))
                 {
                     WinOrDraw result = GameGrid.CheckWinOrDraw();
@@ -163,51 +192,37 @@ namespace TicTacToe_WPF.ViewModel
                     }
                     else
                     {
-                        if (CurrentPlayer == User1)
-                        {
-                            CurrentPlayer = User2;
-                            UpdateCommentary(CurrentPlayer.TakeTurnText);
-                            await Task.Delay(3000);
-                            CommandManager.InvalidateRequerySuggested();
-                        }
-                        else
-                        {
-                            CurrentPlayer = User1;
-                            turnComplete = true; 
-                        } 
+                        CurrentPlayer = User1;
+                        turnComplete = true;
+                        UpdateCommentary(CurrentPlayer.TakeTurnText);
+                        CommandManager.InvalidateRequerySuggested();
                     }
                 }
                 else
                 {
                     UpdateCommentary(CurrentPlayer.TryAgainText);
-                    if (CurrentPlayer == User1)
-                    {
-                        turnComplete = true;
-                    }
                 }
             }
         }
-    
-        public void ResetGame()
+        public async void ResetGame()
         {
-            //reset values and null grid boxes
+            //reset values, null grid boxes and set loser to go first in new game
             GameOver = false;
             GameRunning = true;
             GameGrid.ClearGrid();
-            CurrentPlayer = User1;
-            ShowCommentary = true;
+            CurrentPlayer = CurrentPlayer == User1?User2:User1; 
             UpdateCommentary(currentPlayer.FirstTurnText);
+            ShowCommentary = true;
+            if (CurrentPlayer == User2)
+            {
+                await Task.Delay(3000);
+                TakeTurn();
+            }
         }
 
         public void ExitGame(MainWindow window)
         {
-            
             window.Close();
         }
-
-
-
-       
-
     }
 }

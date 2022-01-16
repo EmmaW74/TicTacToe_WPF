@@ -11,7 +11,6 @@
         Title="Tic Tac Toe" Height="600" Width="600">
     <Window.Resources>
         <vm:TicTacToeVM x:Key="vm"/>
-
         <converters:BoolToXOConverter x:Key="BoolToXO" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style TargetType="TextBlock" x:Key="ButtonText">
@@ -52,9 +51,8 @@
             <Border x:Name="border" CornerRadius="25" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
-            
+
         </ControlTemplate>
-      
         <ControlTemplate x:Key="BoardButtonTemplate" TargetType="{x:Type ButtonBase}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -63,16 +61,12 @@
                 <Trigger Property="Button.IsDefaulted" Value="True">
                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                 </Trigger>
-                
-                
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
                     <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
                     <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
                 </Trigger>
-
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
     </Window.Resources>
 
     <Grid DataContext="{StaticResource vm}" Background="Black">
@@ -186,27 +180,27 @@
             <TextBlock Style="{StaticResource ButtonText}">Start game</TextBlock>
         </Button>
         <Border Grid.Row="4"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
                 CornerRadius="25"
                 Margin="0 30 0 0" 
                 Padding="3" 
                 BorderThickness="1"
-                 Background="PaleGreen"
+                Background="PaleGreen"
                 BorderBrush="Lime"
-                   Visibility="{Binding ShowCommentary, 
+                Visibility="{Binding ShowCommentary, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-        <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
-                  
-                   Foreground="Black"
-                   FontSize="20" 
-                   TextWrapping="Wrap"
-                   HorizontalAlignment="Stretch"
-                   FontFamily="Kristen ITC"
-                   Padding="5" 
-                   FontWeight="Bold" 
-                   Visibility="{Binding ShowCommentary, 
-                             Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
+                    Foreground="Black"
+                    FontSize="20" 
+                    TextWrapping="Wrap"
+                    HorizontalAlignment="Stretch"
+                    TextAlignment="Center"
+                    FontFamily="Kristen ITC"
+                    Padding="5" 
+                    FontWeight="Bold" 
+                    Visibility="{Binding ShowCommentary, 
+                                Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
         </Border>
 
         <Button Grid.Row="6" 
@@ -232,9 +226,5 @@
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
             <TextBlock Style="{StaticResource ButtonText}">Exit</TextBlock>
         </Button>
-
     </Grid>
-
-
-
 </Window>

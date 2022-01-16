@@ -16,9 +16,9 @@ namespace TicTacToe_WPF
         override public string GameWonText { get; }
         override public string DrawText { get; }
 
-        public UserPlayer(string name)
+        public UserPlayer()
         {
-            PlayerName = "User"; //Add functionality to enter your name
+            
             PlayerID = 1;
             NoughtOrCross = Token.X;
             FirstTurnText = "You go first, click to add your token.";
