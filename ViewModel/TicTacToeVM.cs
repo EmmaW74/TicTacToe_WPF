@@ -191,8 +191,8 @@ namespace TicTacToe_WPF.ViewModel
         public void ResetGame()
         {
             //reset values and null grid boxes
-            gameOver = false;
-            gameRunning = true;
+            GameOver = false;
+            GameRunning = true;
             GameGrid.ClearGrid();
             CurrentPlayer = User1;
             ShowCommentary = true;
