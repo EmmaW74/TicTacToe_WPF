@@ -24,7 +24,6 @@ namespace TicTacToe_WPF
         {
             newGame = new TicTacToeVM();
             InitializeComponent();
-           
         }
     }
 }

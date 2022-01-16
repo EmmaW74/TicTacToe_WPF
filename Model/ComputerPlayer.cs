@@ -16,11 +16,13 @@ namespace TicTacToe_WPF
         override public string TryAgainText { get; }
         override public string GameWonText { get; }
         override public string DrawText { get; }
+        private string[] nameList = { "Bob", "Charlie", "George", "Harry", "Claire", "Tina" };
 
 
         public ComputerPlayer()
         {
-            PlayerName = "Bob"; //Add random list
+
+            PlayerName = RandomNameGenerator();
             PlayerID = 2;
             NoughtOrCross = Token.O;
             FirstTurnText = $"{PlayerName} goes first";
@@ -36,6 +38,14 @@ namespace TicTacToe_WPF
             Random randomChoice = new Random();
             int turnTaken = randomChoice.Next(0,9);
             return turnTaken;        
+        }
+        
+        //Returns random name for computer player
+        private string RandomNameGenerator()
+        {
+            Random randomChoice = new Random();
+            string nameChosen = nameList[randomChoice.Next(0, 5)];
+            return nameChosen;
         }
     }
 }
