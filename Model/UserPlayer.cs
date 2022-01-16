@@ -21,7 +21,7 @@ namespace TicTacToe_WPF
             PlayerName = "User"; //Add functionality to enter your name
             PlayerID = 1;
             NoughtOrCross = Token.X;
-            FirstTurnText = "You go first.";
+            FirstTurnText = "You go first, click to add your token.";
             TakeTurnText = "Your turn, click to add your token.";
             GameWonText = "Congratulations! You win!";
             TryAgainText = "Sorry that's not valid, try again.";
