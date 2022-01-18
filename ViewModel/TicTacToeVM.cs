@@ -26,7 +26,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 currentPlayer = value;
-                UpdateCommentary(currentPlayer.TakeTurnText);
+                Commentary = currentPlayer.TakeTurnText;
             }
         }
         private string commentary;
@@ -36,7 +36,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 commentary = value;
-                OnPropertyChanged("Commentary");
+                OnPropertyChanged(nameof(Commentary));
             }
         }
         private bool gameRunning;
@@ -55,7 +55,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 awaitingStart = value;
-                OnPropertyChanged("AwaitingStart");
+                OnPropertyChanged(nameof(AwaitingStart));
             }
         }
         private bool gameOver;
@@ -65,7 +65,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 gameOver = value;
-                OnPropertyChanged("GameOver");
+                OnPropertyChanged(nameof(GameOver));
             }
         }
         private bool showCommentary;
@@ -75,7 +75,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 showCommentary = value;
-                OnPropertyChanged("ShowCommentary");
+                OnPropertyChanged(nameof(ShowCommentary));
             }
         }
         public ButtonClickCommand ButtonClickCommand { get; set; }
@@ -106,14 +106,9 @@ namespace TicTacToe_WPF.ViewModel
             AwaitingStart = false;
             ShowCommentary = true;
             GameRunning = true;
-            UpdateCommentary(currentPlayer.FirstTurnText);
+            Commentary = currentPlayer.FirstTurnText;
         }
-
-        public void UpdateCommentary(string newText)
-        {
-            Commentary = newText;
-        }
-            
+                    
         public async void TakeTurn(int chosenCell)
         {
             // User player takes turn
@@ -128,14 +123,14 @@ namespace TicTacToe_WPF.ViewModel
                     WinOrDraw result = GameGrid.CheckWinOrDraw();
                     if (result == WinOrDraw.WIN)
                     {
-                        UpdateCommentary(CurrentPlayer.GameWonText);
+                        Commentary = CurrentPlayer.GameWonText;
                         turnComplete = true;
                         GameRunning = false;
                         GameOver = true;
                     }
                     else if (result == WinOrDraw.DRAW)
                     {
-                        UpdateCommentary(CurrentPlayer.DrawText);
+                        Commentary = CurrentPlayer.DrawText;
                         turnComplete = true;
                         GameRunning = false;
                         GameOver = true;
@@ -143,7 +138,7 @@ namespace TicTacToe_WPF.ViewModel
                     else
                     {                  
                         CurrentPlayer = User2;
-                        UpdateCommentary(CurrentPlayer.TakeTurnText);
+                        Commentary = currentPlayer.TakeTurnText;
                         await Task.Delay(3000);
                         CommandManager.InvalidateRequerySuggested();
                         TakeTurn();
@@ -152,7 +147,7 @@ namespace TicTacToe_WPF.ViewModel
                 }
                 else
                 {
-                    UpdateCommentary(CurrentPlayer.TryAgainText);
+                    Commentary = CurrentPlayer.TryAgainText;
                     if (CurrentPlayer == User1)
                     {
                         turnComplete = true;
@@ -175,14 +170,14 @@ namespace TicTacToe_WPF.ViewModel
                     WinOrDraw result = GameGrid.CheckWinOrDraw();
                     if (result == WinOrDraw.WIN)
                     {
-                        UpdateCommentary(CurrentPlayer.GameWonText);
+                        Commentary = CurrentPlayer.GameWonText;
                         turnComplete = true;
                         GameRunning = false;
                         GameOver = true;
                     }
                     else if (result == WinOrDraw.DRAW)
                     {
-                        UpdateCommentary(CurrentPlayer.DrawText);
+                        Commentary = CurrentPlayer.DrawText;
                         turnComplete = true;
                         GameRunning = false;
                         GameOver = true;
@@ -191,13 +186,13 @@ namespace TicTacToe_WPF.ViewModel
                     {
                         CurrentPlayer = User1;
                         turnComplete = true;
-                        UpdateCommentary(CurrentPlayer.TakeTurnText);
+                        Commentary = currentPlayer.TakeTurnText;
                         CommandManager.InvalidateRequerySuggested();
                     }
                 }
                 else
                 {
-                    UpdateCommentary(CurrentPlayer.TryAgainText);
+                    Commentary = CurrentPlayer.TryAgainText;
                 }
             }
         }
@@ -208,7 +203,7 @@ namespace TicTacToe_WPF.ViewModel
             GameRunning = true;
             GameGrid.ClearGrid();
             CurrentPlayer = CurrentPlayer == User1?User2:User1; 
-            UpdateCommentary(currentPlayer.FirstTurnText);
+            Commentary = currentPlayer.FirstTurnText;
             ShowCommentary = true;
             if (CurrentPlayer == User2)
             {
