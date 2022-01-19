@@ -19,21 +19,17 @@
     <Grid DataContext="{StaticResource vm}" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+           
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+           
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0"
-                   Grid.ColumnSpan="5"
+                  
                    Text="TIC TAC TOE"
                    Foreground="Lime"
                    FontFamily="Kristen ITC"
@@ -42,136 +38,149 @@
                    Margin="0 0 0 0"
                    Padding="20"
                    FontWeight="Bold" />
-        <Button Grid.Row="1"
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Margin="100 0 100 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        <Button Grid.Row="0"
                 Content="{Binding GameGrid.gameBoard[0],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="0"
-                Grid.Column="1"
+                Grid.Column="0"
                 BorderThickness ="0 0 5 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"
                 />
-        <Button Grid.Row="1" 
-                Grid.Column="2"
+        <Button Grid.Row="0" 
+                Grid.Column="1"
                 Content="{Binding GameGrid.gameBoard[1],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="1"
                 BorderThickness ="0 0 5 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="1" 
-                Grid.Column="3"
+        <Button Grid.Row="0" 
+                Grid.Column="2"
                 Content="{Binding GameGrid.gameBoard[2],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="2"
                 BorderThickness ="0 0 0 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="1"
+        <Button Grid.Row="1" 
+                Grid.Column="0"
                 Content="{Binding GameGrid.gameBoard[3],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="3"
                 BorderThickness ="0 0 5 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="2"
+        <Button Grid.Row="1" 
+                Grid.Column="1"
                 Content="{Binding GameGrid.gameBoard[4],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="4"
                 BorderThickness ="0 0 5 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="3"
+        <Button Grid.Row="1" 
+                Grid.Column="2"
                 Content="{Binding GameGrid.gameBoard[5],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="5"
                 BorderThickness ="0 0 0 5"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="3" 
-                Grid.Column="1"
+        <Button Grid.Row="2" 
+                Grid.Column="0"
                 Content="{Binding GameGrid.gameBoard[6],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="6"
                 BorderThickness ="0 0 5 0"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="3" 
-                Grid.Column="2"
+        <Button Grid.Row="2" 
+                Grid.Column="1"
                 Content="{Binding GameGrid.gameBoard[7],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="7"
                 BorderThickness ="0 0 5 0"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="3" 
-                Grid.Column="3"
+        <Button Grid.Row="2" 
+                Grid.Column="2"
                 Content="{Binding GameGrid.gameBoard[8],Converter={StaticResource BoolToXO}}"
                 Command="{Binding ButtonClickCommand}"
                 CommandParameter="8"
                 BorderThickness ="0 0 0 0"
                 Style="{StaticResource boardButton}"
                 Template="{StaticResource BoardButtonTemplate}" />
-        <Button Grid.Row="5" 
+        </Grid>
+
+                
+        <Border Grid.Row="2"
                 Grid.Column="1"
-                Grid.ColumnSpan="3"
+                Style="{StaticResource gameCommentaryBorder}"
+                Visibility="{Binding ShowCommentary, 
+                             Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+            <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
+                    Style="{StaticResource gameCommentaryText}"
+                    Visibility="{Binding ShowCommentary, 
+                                Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
+        </Border>
+        <Button Grid.Row="3" 
+                
+                
+                HorizontalAlignment="Center"
                 Template="{StaticResource NavButtonTemplate}"
                 Style="{StaticResource navButton}"
                 Command="{Binding StartButtonCommand}"
                 CommandParameter="start"
                 Visibility="{Binding AwaitingStart, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+
             <TextBlock Style="{StaticResource ButtonText}">Start game</TextBlock>
         </Button>
-        <Border Grid.Row="4"
-                Grid.Column="1"
-                Grid.ColumnSpan="3"
-                CornerRadius="25"
-                Margin="0 30 0 0" 
-                Padding="3" 
-                BorderThickness="1"
-                Background="PaleGreen"
-                BorderBrush="Lime"
-                Visibility="{Binding ShowCommentary, 
+        <Grid Grid.Row="3"
+              HorizontalAlignment="Stretch"
+              >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Command="{Binding StartButtonCommand}"
+                    CommandParameter="newgame"
+                    Template="{StaticResource NavButtonTemplate}"
+                    Style="{StaticResource navButton}"
+                    Visibility="{Binding GameOver, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Text="{Binding Commentary, Mode=TwoWay}"
-                    Foreground="Black"
-                    FontSize="20" 
-                    TextWrapping="Wrap"
-                    HorizontalAlignment="Stretch"
-                    TextAlignment="Center"
-                    FontFamily="Kristen ITC"
-                    Padding="5" 
-                    FontWeight="Bold" 
-                    Visibility="{Binding ShowCommentary, 
-                                Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"/>
-        </Border>
-
-        <Button Grid.Row="6" 
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Command="{Binding StartButtonCommand}"
-                CommandParameter="newgame"
-                Template="{StaticResource NavButtonTemplate}"
-                Style="{StaticResource navButton}"
-                Visibility="{Binding GameOver, 
-                             Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Style="{StaticResource ButtonText}">Play again</TextBlock>
+                <TextBlock Style="{StaticResource ButtonText}">Play again</TextBlock>
         </Button>
 
-        <Button Grid.Row="6" 
-                Grid.Column="3"
-                Grid.ColumnSpan="2"
-                Template="{StaticResource NavButtonTemplate}"
-                Style="{StaticResource navButton}"
-                Command="{Binding StartButtonCommand}"
-                CommandParameter="{Binding ElementName=appwindow}"
-                Visibility="{Binding GameOver, 
+            <Button Grid.Column="1"
+                    Template="{StaticResource NavButtonTemplate}"
+                    Style="{StaticResource navButton}"
+                    Command="{Binding StartButtonCommand}"
+                    CommandParameter="{Binding ElementName=appwindow}"
+                    Visibility="{Binding GameOver, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Style="{StaticResource ButtonText}">Exit</TextBlock>
+                <TextBlock Style="{StaticResource ButtonText}">Exit</TextBlock>
         </Button>
+        </Grid>
     </Grid>
 </Window>

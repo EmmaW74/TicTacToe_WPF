@@ -94,6 +94,12 @@ namespace TicTacToe_WPF.ViewModel
             ShowCommentary = false;
             GameRunning = false;
             GameOver = false;
+            if(DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+                AwaitingStart = true;
+                ShowCommentary = true;
+                GameOver = true;
+            }
         }
 
         private void OnPropertyChanged(string propertyName)
