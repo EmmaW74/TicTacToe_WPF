@@ -29,10 +29,10 @@
            
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0"
-                  
+                  Style="{StaticResource TextMain}"
                    Text="TIC TAC TOE"
                    Foreground="Lime"
-                   FontFamily="Kristen ITC"
+                   
                    FontSize="30"
                    HorizontalAlignment="Center"
                    Margin="0 0 0 0"
@@ -150,7 +150,7 @@
                 Visibility="{Binding AwaitingStart, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
 
-            <TextBlock Style="{StaticResource ButtonText}">Start game</TextBlock>
+            <TextBlock Style="{StaticResource TextMain}">Start game</TextBlock>
         </Button>
         <Grid Grid.Row="3"
               HorizontalAlignment="Stretch"
@@ -169,7 +169,7 @@
                     Style="{StaticResource navButton}"
                     Visibility="{Binding GameOver, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-                <TextBlock Style="{StaticResource ButtonText}">Play again</TextBlock>
+                <TextBlock Style="{StaticResource TextMain}">Play again</TextBlock>
         </Button>
 
             <Button Grid.Column="1"
@@ -179,7 +179,7 @@
                     CommandParameter="{Binding ElementName=appwindow}"
                     Visibility="{Binding GameOver, 
                              Converter={StaticResource BooleanToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-                <TextBlock Style="{StaticResource ButtonText}">Exit</TextBlock>
+                <TextBlock Style="{StaticResource TextMain}">Exit</TextBlock>
         </Button>
         </Grid>
     </Grid>

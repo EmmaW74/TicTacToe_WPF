@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\ButtonClickCommand.cs" />
     <Compile Include="Commands\StartButtonCommand.cs" />
+    <Compile Include="Model\IPlayer.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="ViewModel\TicTacToeVM.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -66,9 +68,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\ComputerPlayer.cs" />
     <Compile Include="Model\Player.cs" />
-    <Compile Include="Model\UserPlayer.cs" />
     <Compile Include="Model\Grid.cs" />
     <Compile Include="ViewModel\ValueConverters\BoolToXOConverter.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

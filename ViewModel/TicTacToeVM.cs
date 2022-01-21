@@ -13,7 +13,7 @@ namespace TicTacToe_WPF.ViewModel
 {
     public class TicTacToeVM: INotifyPropertyChanged
     {     
-        private UserPlayer User1 { get; set; }
+        private Player User1 { get; set; }
         private Player User2 { get; set; }
         public Grid GameGrid { get; set; }
         private Player currentPlayer;
@@ -84,9 +84,9 @@ namespace TicTacToe_WPF.ViewModel
 
         public TicTacToeVM()
         {
-            User1 = new UserPlayer();
+            User1 = new Player(1);
             GameGrid = new Grid();
-            User2 = new ComputerPlayer();
+            User2 = new Player(2);
             CurrentPlayer = User1;
             ButtonClickCommand = new ButtonClickCommand(this);
             AwaitingStart = true;
@@ -213,7 +213,7 @@ namespace TicTacToe_WPF.ViewModel
             ShowCommentary = true;
             if (CurrentPlayer == User2)
             {
-                await Task.Delay(3000);
+                await Task.Delay(2000);
                 TakeTurn();
             }
         }
