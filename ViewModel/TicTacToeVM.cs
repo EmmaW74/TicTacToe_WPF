@@ -82,6 +82,9 @@ namespace TicTacToe_WPF.ViewModel
         public StartButtonCommand StartButtonCommand { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public MyRelayCommand CmdStartButton { get; set; }
+        public MyRelayCommand CmdPlayClick { get; set; }
+
         public TicTacToeVM()
         {
             User1 = new Player(1);
@@ -100,6 +103,39 @@ namespace TicTacToe_WPF.ViewModel
                 ShowCommentary = true;
                 GameOver = true;
             }
+            CmdStartButton = new MyRelayCommand(parameter =>
+            {
+                string value = parameter as string;
+                MainWindow window = parameter as MainWindow;
+                if (value == "start")
+                {
+                    RunGame();
+                }
+                else if (value == "newgame")
+                {
+                    ResetGame();
+                }
+                else
+                {
+                    ExitGame(window);
+                }
+            }, parameter => true);
+
+            CmdPlayClick = new MyRelayCommand(parameter =>
+            {
+                int chosenCell = Convert.ToInt32(parameter);
+                TakeTurn(chosenCell);
+            }, parameter =>
+            {
+                if (CurrentPlayer.PlayerID == 1 && GameRunning == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -222,5 +258,9 @@ namespace TicTacToe_WPF.ViewModel
         {
             window.Close();
         }
+
+
+
+        
     }
 }

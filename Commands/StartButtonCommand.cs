@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TicTacToe_WPF.ViewModel;
 
+
+// **** REPLACED BY RELAY COMMAND CmdStartButton ****
 namespace TicTacToe_WPF.Commands
 {
     public class StartButtonCommand : ICommand

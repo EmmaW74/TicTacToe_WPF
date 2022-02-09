@@ -7,7 +7,9 @@ using System.Windows.Input;
 using TicTacToe_WPF.ViewModel;
 
 namespace TicTacToe_WPF.Commands
-{
+{  
+// *** REPLACED BY CmdPlayClick RelayCommand ***
+
     public class ButtonClickCommand : ICommand
     {
         public TicTacToeVM VM { get; set; }
