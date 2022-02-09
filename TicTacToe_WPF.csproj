@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\ButtonClickCommand.cs" />
+    <Compile Include="Commands\MyRelayCommand.cs" />
     <Compile Include="Commands\StartButtonCommand.cs" />
     <Compile Include="Model\IPlayer.cs" />
     <Compile Include="Model\Enums.cs" />
