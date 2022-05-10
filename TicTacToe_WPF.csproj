@@ -60,7 +60,12 @@
     <Compile Include="Commands\StartButtonCommand.cs" />
     <Compile Include="Model\IPlayer.cs" />
     <Compile Include="Model\Enums.cs" />
+    <Compile Include="ViewModel\ExitVM.cs" />
     <Compile Include="ViewModel\TicTacToeVM.cs" />
+    <Page Include="View\Exit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +77,9 @@
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Grid.cs" />
     <Compile Include="ViewModel\ValueConverters\BoolToXOConverter.cs" />
+    <Compile Include="View\Exit.xaml.cs">
+      <DependentUpon>Exit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

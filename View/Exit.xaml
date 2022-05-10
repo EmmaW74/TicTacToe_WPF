@@ -1,0 +1,53 @@
+﻿<Window x:Class="TicTacToe_WPF.View.Exit"
+        x:Name="ExitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:vm="clr-namespace:TicTacToe_WPF.ViewModel"
+        mc:Ignorable="d"
+        Title="Are you sure?" Height="600" Width="600" Top="100" Left="300"
+        Background="Black">
+    <Window.Resources>
+        <vm:ExitVM x:Key="vm"/> 
+        
+    </Window.Resources>
+    <StackPanel DataContext="{StaticResource vm}" VerticalAlignment="Center">
+        <TextBlock 
+                  Style="{StaticResource TextMain}"
+                   Text="Are you sure you want to exit?"
+                   Foreground="Lime"
+                   TextAlignment="Center"
+            
+                   FontSize="20"
+                   HorizontalAlignment="Center"
+                   
+                   Height="90"
+                   Margin="0 0 0 0"
+                   Padding="20"
+                   FontWeight="Bold" />
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+            <Button Grid.Column="0"
+                    Command="{Binding CmdExit}"
+                    CommandParameter="yes"
+                    Template="{StaticResource NavButtonTemplate}"
+                    Style="{StaticResource navButton}" >
+
+            <TextBlock Style="{StaticResource TextMain}">Yes</TextBlock>
+            </Button>
+
+            <Button 
+                    Template="{StaticResource NavButtonTemplate}"
+                    Style="{StaticResource navButton}"
+                    Command="{Binding CmdExit}"
+                    CommandParameter="{Binding ElementName=ExitWindow}">
+
+            <TextBlock Style="{StaticResource TextMain}">No</TextBlock>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

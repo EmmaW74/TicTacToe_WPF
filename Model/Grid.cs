@@ -81,7 +81,7 @@ namespace TicTacToe_WPF
             return WinOrDraw.NONE;
         }
 
-        private static bool XWins(Nullable<bool> itemToCheck)
+        private bool XWins(Nullable<bool> itemToCheck)
         {
             if (itemToCheck == true)
             {
@@ -93,7 +93,7 @@ namespace TicTacToe_WPF
             }
         }
 
-        private static bool OWins(Nullable<bool> itemToCheck)
+        private bool OWins(Nullable<bool> itemToCheck)
         {
             if (itemToCheck == false)
             {

@@ -10,7 +10,7 @@ using TicTacToe_WPF.ViewModel;
 // **** REPLACED BY RELAY COMMAND CmdStartButton ****
 namespace TicTacToe_WPF.Commands
 {
-    public class StartButtonCommand : ICommand
+  /*  public class StartButtonCommand : ICommand
     {
         public TicTacToeVM VM { get; set; }
         public event EventHandler CanExecuteChanged
@@ -52,5 +52,5 @@ namespace TicTacToe_WPF.Commands
             }
             
         }
-    }
+    } */
 }

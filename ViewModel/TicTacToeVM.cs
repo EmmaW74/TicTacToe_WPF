@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TicTacToe_WPF.Commands;
-
+using TicTacToe_WPF.View;
 
 namespace TicTacToe_WPF.ViewModel
 {
@@ -36,7 +36,7 @@ namespace TicTacToe_WPF.ViewModel
             set
             {
                 commentary = value;
-                OnPropertyChanged(nameof(Commentary));
+                OnPropertyChanged(nameof(Commentary)); //triggers OnPropertyChanged
             }
         }
         private bool gameRunning;
@@ -78,9 +78,10 @@ namespace TicTacToe_WPF.ViewModel
                 OnPropertyChanged(nameof(ShowCommentary));
             }
         }
-        public ButtonClickCommand ButtonClickCommand { get; set; }
-        public StartButtonCommand StartButtonCommand { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public ButtonClickCommand ButtonClickCommand { get; set; }
+        //public StartButtonCommand StartButtonCommand { get; set; }
+        
+        public event PropertyChangedEventHandler PropertyChanged;  //this is the event
 
         public MyRelayCommand CmdStartButton { get; set; }
         public MyRelayCommand CmdPlayClick { get; set; }
@@ -91,9 +92,9 @@ namespace TicTacToe_WPF.ViewModel
             GameGrid = new Grid();
             User2 = new Player(2);
             CurrentPlayer = User1;
-            ButtonClickCommand = new ButtonClickCommand(this);
+            //ButtonClickCommand = new ButtonClickCommand(this);
             AwaitingStart = true;
-            StartButtonCommand = new StartButtonCommand(this);
+            //StartButtonCommand = new StartButtonCommand(this);
             ShowCommentary = false;
             GameRunning = false;
             GameOver = false;
@@ -117,7 +118,9 @@ namespace TicTacToe_WPF.ViewModel
                 }
                 else
                 {
-                    ExitGame(window);
+                    Exit exit_window = new Exit();
+                    exit_window.Show();
+                    
                 }
             }, parameter => true);
 
@@ -141,6 +144,7 @@ namespace TicTacToe_WPF.ViewModel
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            //check PropertyChanged event exists then invoke it (sender,property that's changed)
         }
 
         public void RunGame()
