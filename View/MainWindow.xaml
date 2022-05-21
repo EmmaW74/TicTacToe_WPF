@@ -6,11 +6,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        
         xmlns:vm="clr-namespace:TicTacToe_WPF.ViewModel"
+        xmlns:uc="clr-namespace:TicTacToe_WPF.View.Resources"
         xmlns:converters="clr-namespace:TicTacToe_WPF.ViewModel.ValueConverters"
         mc:Ignorable="d"
         Title="Tic Tac Toe" Height="600" Width="600" Top="100" Left="300">
     <Window.Resources>
         <vm:TicTacToeVM x:Key="vm"/>
+        
         <converters:BoolToXOConverter x:Key="BoolToXO" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
                 
@@ -38,97 +40,9 @@
                    Margin="0 0 0 0"
                    Padding="20"
                    FontWeight="Bold" />
-
-        <Grid Grid.Row="1"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
-              Margin="100 0 100 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-        <Button Grid.Row="0"
-                Content="{Binding GameGrid.gameBoard[0],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="0"
-                Grid.Column="0"
-                BorderThickness ="0 0 5 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"
-                />
-        <Button Grid.Row="0" 
-                Grid.Column="1"
-                Content="{Binding GameGrid.gameBoard[1],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="1"
-                BorderThickness ="0 0 5 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="0" 
-                Grid.Column="2"
-                Content="{Binding GameGrid.gameBoard[2],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="2"
-                BorderThickness ="0 0 0 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="1" 
-                Grid.Column="0"
-                Content="{Binding GameGrid.gameBoard[3],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="3"
-                BorderThickness ="0 0 5 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="1" 
-                Grid.Column="1"
-                Content="{Binding GameGrid.gameBoard[4],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="4"
-                BorderThickness ="0 0 5 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="1" 
-                Grid.Column="2"
-                Content="{Binding GameGrid.gameBoard[5],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="5"
-                BorderThickness ="0 0 0 5"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="0"
-                Content="{Binding GameGrid.gameBoard[6],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="6"
-                BorderThickness ="0 0 5 0"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="1"
-                Content="{Binding GameGrid.gameBoard[7],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="7"
-                BorderThickness ="0 0 5 0"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}"/>
-        <Button Grid.Row="2" 
-                Grid.Column="2"
-                Content="{Binding GameGrid.gameBoard[8],Converter={StaticResource BoolToXO}}"
-                Command="{Binding CmdPlayClick}"
-                CommandParameter="8"
-                BorderThickness ="0 0 0 0"
-                Style="{StaticResource boardButton}"
-                Template="{StaticResource BoardButtonTemplate}" />
-        </Grid>
-
-                
+        <uc:nineboxgridcontrol DataContext="{StaticResource vm}"
+                          Grid.Row="1" />
+                        
         <Border Grid.Row="2"
                 Grid.Column="1"
                 Style="{StaticResource gameCommentaryBorder}"
