@@ -78,6 +78,8 @@ namespace TicTacToe_WPF.ViewModel
                 OnPropertyChanged(nameof(ShowCommentary));
             }
         }
+       
+
         //public ButtonClickCommand ButtonClickCommand { get; set; }
         //public StartButtonCommand StartButtonCommand { get; set; }
         
@@ -98,6 +100,8 @@ namespace TicTacToe_WPF.ViewModel
             ShowCommentary = false;
             GameRunning = false;
             GameOver = false;
+            
+
             if(DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
             {
                 AwaitingStart = true;
